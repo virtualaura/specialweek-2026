@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "040ce38e8422bb64303ea19236929998",
+    "revision": "dc12cebb21a144ea3f645321fac1658a",
     "url": "/specialweek-2025/index.html"
   },
   {
-    "revision": "1680ecd1e007d19279f2",
+    "revision": "14d5168ca0ca281745f9",
     "url": "/specialweek-2025/static/css/main.bb925948.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/specialweek-2025/static/js/4.355f0e43.chunk.js"
   },
   {
-    "revision": "1680ecd1e007d19279f2",
-    "url": "/specialweek-2025/static/js/main.43d23a92.chunk.js"
+    "revision": "14d5168ca0ca281745f9",
+    "url": "/specialweek-2025/static/js/main.b888da82.chunk.js"
   },
   {
     "revision": "dd123fd770cb92486999",
