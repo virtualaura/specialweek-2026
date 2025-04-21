@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "efb4ca9782201cc981627098e415b3a3",
+    "revision": "75214d0c5aff1d7c4cae20bf6f842635",
     "url": "/specialweek-2025/index.html"
   },
   {
-    "revision": "da200afd196b5338eef5",
-    "url": "/specialweek-2025/static/css/main.a53d1410.chunk.css"
+    "revision": "525069a0fd70817b9bde",
+    "url": "/specialweek-2025/static/css/main.d350d8f3.chunk.css"
   },
   {
     "revision": "936650753ab74a49dfe4",
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/specialweek-2025/static/js/4.7d92c70c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "da200afd196b5338eef5",
-    "url": "/specialweek-2025/static/js/main.88175134.chunk.js"
+    "revision": "525069a0fd70817b9bde",
+    "url": "/specialweek-2025/static/js/main.6ddfa5fe.chunk.js"
   },
   {
     "revision": "e916b3558a5a164edc88",
