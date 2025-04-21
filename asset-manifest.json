@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/specialweek-2025/static/css/main.a53d1410.chunk.css",
-    "main.js": "/specialweek-2025/static/js/main.14bd76ee.chunk.js",
-    "main.js.map": "/specialweek-2025/static/js/main.14bd76ee.chunk.js.map",
+    "main.js": "/specialweek-2025/static/js/main.88175134.chunk.js",
+    "main.js.map": "/specialweek-2025/static/js/main.88175134.chunk.js.map",
     "runtime-main.js": "/specialweek-2025/static/js/runtime-main.55843530.js",
     "runtime-main.js.map": "/specialweek-2025/static/js/runtime-main.55843530.js.map",
     "static/js/2.a763dc3c.chunk.js": "/specialweek-2025/static/js/2.a763dc3c.chunk.js",
@@ -12,7 +12,7 @@
     "static/js/4.7d92c70c.chunk.js": "/specialweek-2025/static/js/4.7d92c70c.chunk.js",
     "static/js/4.7d92c70c.chunk.js.map": "/specialweek-2025/static/js/4.7d92c70c.chunk.js.map",
     "index.html": "/specialweek-2025/index.html",
-    "precache-manifest.e43c594cc84d436bf493d7603d0a0b96.js": "/specialweek-2025/precache-manifest.e43c594cc84d436bf493d7603d0a0b96.js",
+    "precache-manifest.ca9f8de14b28417bc6a9ca78be10db50.js": "/specialweek-2025/precache-manifest.ca9f8de14b28417bc6a9ca78be10db50.js",
     "service-worker.js": "/specialweek-2025/service-worker.js",
     "static/css/main.a53d1410.chunk.css.map": "/specialweek-2025/static/css/main.a53d1410.chunk.css.map",
     "static/js/2.a763dc3c.chunk.js.LICENSE.txt": "/specialweek-2025/static/js/2.a763dc3c.chunk.js.LICENSE.txt",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.55843530.js",
     "static/js/2.a763dc3c.chunk.js",
     "static/css/main.a53d1410.chunk.css",
-    "static/js/main.14bd76ee.chunk.js"
+    "static/js/main.88175134.chunk.js"
   ]
 }
