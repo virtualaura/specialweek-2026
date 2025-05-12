@@ -1,28 +1,22 @@
 {
   "files": {
-    "main.css": "/specialweek-2025/static/css/main.d350d8f3.chunk.css",
-    "main.js": "/specialweek-2025/static/js/main.f91d241d.chunk.js",
-    "main.js.map": "/specialweek-2025/static/js/main.f91d241d.chunk.js.map",
-    "runtime-main.js": "/specialweek-2025/static/js/runtime-main.55843530.js",
-    "runtime-main.js.map": "/specialweek-2025/static/js/runtime-main.55843530.js.map",
-    "static/js/2.a763dc3c.chunk.js": "/specialweek-2025/static/js/2.a763dc3c.chunk.js",
-    "static/js/2.a763dc3c.chunk.js.map": "/specialweek-2025/static/js/2.a763dc3c.chunk.js.map",
-    "static/js/3.a097bff8.chunk.js": "/specialweek-2025/static/js/3.a097bff8.chunk.js",
-    "static/js/3.a097bff8.chunk.js.map": "/specialweek-2025/static/js/3.a097bff8.chunk.js.map",
-    "static/js/4.7d92c70c.chunk.js": "/specialweek-2025/static/js/4.7d92c70c.chunk.js",
-    "static/js/4.7d92c70c.chunk.js.map": "/specialweek-2025/static/js/4.7d92c70c.chunk.js.map",
+    "main.css": "/specialweek-2025/static/css/main.2a3387b4.chunk.css",
+    "main.js": "/specialweek-2025/static/js/main.59a11e5f.chunk.js",
+    "main.js.map": "/specialweek-2025/static/js/main.59a11e5f.chunk.js.map",
+    "runtime-main.js": "/specialweek-2025/static/js/runtime-main.e56fda7d.js",
+    "runtime-main.js.map": "/specialweek-2025/static/js/runtime-main.e56fda7d.js.map",
+    "static/js/2.92f3a45e.chunk.js": "/specialweek-2025/static/js/2.92f3a45e.chunk.js",
+    "static/js/2.92f3a45e.chunk.js.map": "/specialweek-2025/static/js/2.92f3a45e.chunk.js.map",
     "index.html": "/specialweek-2025/index.html",
-    "precache-manifest.46e7e19ccd5a961cf6bd52c7b2285b94.js": "/specialweek-2025/precache-manifest.46e7e19ccd5a961cf6bd52c7b2285b94.js",
+    "precache-manifest.26d6a99b6fb577a08ca5016005db4e68.js": "/specialweek-2025/precache-manifest.26d6a99b6fb577a08ca5016005db4e68.js",
     "service-worker.js": "/specialweek-2025/service-worker.js",
-    "static/css/main.d350d8f3.chunk.css.map": "/specialweek-2025/static/css/main.d350d8f3.chunk.css.map",
-    "static/js/2.a763dc3c.chunk.js.LICENSE.txt": "/specialweek-2025/static/js/2.a763dc3c.chunk.js.LICENSE.txt",
-    "static/js/3.a097bff8.chunk.js.LICENSE.txt": "/specialweek-2025/static/js/3.a097bff8.chunk.js.LICENSE.txt",
-    "static/js/4.7d92c70c.chunk.js.LICENSE.txt": "/specialweek-2025/static/js/4.7d92c70c.chunk.js.LICENSE.txt"
+    "static/css/main.2a3387b4.chunk.css.map": "/specialweek-2025/static/css/main.2a3387b4.chunk.css.map",
+    "static/js/2.92f3a45e.chunk.js.LICENSE.txt": "/specialweek-2025/static/js/2.92f3a45e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.55843530.js",
-    "static/js/2.a763dc3c.chunk.js",
-    "static/css/main.d350d8f3.chunk.css",
-    "static/js/main.f91d241d.chunk.js"
+    "static/js/runtime-main.e56fda7d.js",
+    "static/js/2.92f3a45e.chunk.js",
+    "static/css/main.2a3387b4.chunk.css",
+    "static/js/main.59a11e5f.chunk.js"
   ]
 }
