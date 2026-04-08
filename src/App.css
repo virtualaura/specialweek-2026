@@ -1,0 +1,133 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.App {
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+}
+
+.schedule-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.schedule-day {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  min-width: 250px;
+  background: #f9f9f9;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  height: auto;
+  max-height: 100%;
+}
+
+.schedule-day-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.schedule-bars {
+  position: relative;
+}
+
+.schedule-block {
+  position: relative;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: #000;
+  font-size: 0.9rem;
+}
+
+.block-content {
+  pointer-events: none;
+}
+
+.event-location {
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+/* Colour classes */
+.blue { background-color: #49C8F5; }
+.yellow { background-color: #fce59a; }
+.green { background-color: #73f792; }
+.red { background-color: #f53158; }
+.pitch-event { background-color: #4A5D65; }
+.blue2 { background-color: #b8daff; }
+.lightyellow { background-color: #fffbe6; }
+.lightyellow-100 {background-color: #FFFEF9; }
+
+/* Print styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+  }
+
+  .App {
+    padding: 0;
+  }
+
+  .schedule-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .schedule-day {
+    page-break-inside: avoid;
+    border: none;
+    margin-bottom: 1rem;
+    background: none;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}

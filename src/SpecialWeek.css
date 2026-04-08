@@ -1,0 +1,557 @@
+.h1 {
+  align-content: center;
+  }
+
+h3 {
+  font-size: 1.1em;
+  }
+
+h4 {
+  padding: 10px;
+  margin: 0;
+}
+
+  /*
+  .schedule-day-header {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .schedule-day-events {
+    position: relative;
+    height: 600px;
+    padding: 10px;
+  }
+  
+  .schedule-event {
+    position: absolute;
+    width: 100%;
+    color: black;
+    padding: 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .event-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .event-time {
+    font-size: 0.8em;
+    margin-bottom: 2px;
+  }
+  
+  .event-location {
+    font-size: 0.7em;
+  }
+*/ 
+
+/* For the todo list */
+ul {
+    list-style-type: none;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  li .flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  li .font-semibold {
+    font-weight: bold;
+  }
+  
+  li .text-lg {
+    font-size: 1em;
+  }
+  
+  li .text-gray-900 {
+    color: #1a202c;
+  }
+  
+  li .text-gray-600 {
+    color: #718096;
+  }
+  
+  li .italic {
+    font-style: italic;
+  }
+  
+  li .mr-3 {
+    margin-right: 1rem;
+  }
+  
+  ul, ul.list-none {
+    list-style-type: none !important;
+  }
+
+  /* Add custom styles for day and event block */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .days-of-week {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .day-column {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .schedule-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .schedule-block {
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    transition: opacity 0.3s ease;
+    font-size: 0.8rem;
+  }
+
+  .schedule-block.bg-blue-500 {
+    background-color: #49C8F5;
+  }
+  
+  .schedule-block.bg-green-500 {
+    background-color: #73f792;
+  }
+  
+  .schedule-block.bg-yellow-500 {
+    background-color: #fce59a;
+  }
+  
+  .schedule-block.bg-yellow-100 {
+    background-color: #FFFEF9;
+  }
+  
+  .schedule-block.bg-red-500 {
+    background-color: #f53158;
+  }
+  
+  .schedule-block.pitch-event {
+    background-color: #4A5D65;
+    color: #fff;
+  }
+  
+  .schedule-block.pitch-event .event-name,
+  .schedule-block.pitch-event .event-location {
+    color: #fff;
+  }
+  
+  .schedule-day-name {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .todo-detail {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 35px;
+    font-size: 1em;
+  }
+  
+  ul {
+    padding-inline-start: 10px;
+  }
+
+  /* Container for the entire schedule */
+  .schedule-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    height: auto;
+  }
+  
+  .schedule-day {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 500px; /* Increased minimum height */
+  }
+  
+  .schedule-day-name {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .schedule-bars {
+    position: relative;
+    flex-grow: 1;
+    /* padding: 10px 0; /* Removed horizontal padding */
+  }
+  
+  .schedule-block {
+    /* position: absolute; Seems to be making the blocks overlap */
+    width: calc(100% - 20px); /* Subtract padding */
+    /* left: 10px; Center in column */
+    /* margin-bottom: 5px; /* Space between blocks */
+    border-radius: 6px;
+    /* padding: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
+  
+  .block-content {
+    width: 100%;
+  }
+  
+  .event-name {
+    color: #000;
+    font-weight: 400;
+    font-size: 15px;
+  }
+  
+  .event-location {
+    color: #000;
+    font-size: 16px;
+  }
+  
+  .schedule-block.pitch-event .event-name {
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  
+  .schedule-block.pitch-event .event-location {
+    color: #fff;
+  }
+  
+  /* Color variations */
+  .schedule-block.blue { background-color: #49C8F5; color: black; }
+  .schedule-block.green { background-color: #AFE1FC; color: black; }
+  .schedule-block.yellow { background-color: #E2F3FD; color: black; }
+  .schedule-block.lightyellow { background-color: #FFFEF9; color: black; }
+  .schedule-block.red { background-color: #C5D4DB; color: black; }
+  .schedule-block.pitch-event { background-color: #4A5D65; color: white; }
+  .schedule-block.blue2 { background-color: #96DEF9; color: blue2; }
+
+  .toggle-schedule-btn {
+    background-color: transparent;
+    color: #4a5568;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #4a5568;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .toggle-schedule-btn:hover {
+    background-color: #4a5568;
+    color: white;
+  }
+
+  .filter-button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #2b6cb0;
+    cursor: pointer;
+    font-size: .9rem;
+    margin-right: 6px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+    background-color: white;
+    color: #2b6cb0;
+  }
+
+  .filter-button.active {
+    background-color: #2b6cb0;
+    color: white;
+  }
+
+  .filter-button:hover {
+    background-color: #2b6cb0;
+    color: white;
+  }
+
+  .filter-button.active:hover {
+    background-color: #2c5282;
+  }
+
+  .todo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0 10px;
+  }
+
+  .todo-grid li {
+    list-style: none;
+    margin-bottom: 10px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .hide-calendar-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #2b6cb0;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: all 0.2s ease;
+    background-color: white;
+    color: #2b6cb0;
+    margin: 0;
+    align-self: flex-end;
+  }
+
+  .hide-calendar-btn:hover {
+    background-color: #2b6cb0;
+    color: white;
+  }
+
+  .calendar-link {
+    color: #2b6cb0;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .calendar-link:hover {
+    color: #2c5282;
+  }
+
+  @media (max-width: 768px) {
+    .schedule-container {
+      grid-template-columns: 1fr;
+    }
+    .todo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1rem;
+  height: 8rem;
+}
+
+.header-image {
+  position: absolute;
+  left: 0;
+  height: 8rem;
+  width: auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Dynamic Filter buttons */
+.mb-4 {
+  padding: 0 10px;
+}
+
+.section-header {
+  padding: 0 10px;
+  margin: 20px 0 10px 0;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #2b6cb0;
+  padding-bottom: 10px;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  padding-bottom: 10px;
+  color: #2b6cb0;
+}
+
+#todos {
+  margin-bottom: 20px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #4a5568;
+  padding: 5px;
+}
+
+.modal-close:hover {
+  color: #2b6cb0;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 10px;
+    padding: 15px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.close-window-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.close-window-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.download-pdf-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.download-pdf-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+#schedule-block {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#schedule-block .schedule-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+#schedule-block .schedule-block {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#schedule-block .event-block {
+  padding: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+#schedule-block h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#schedule-block .event-time {
+  font-size: 0.875rem;
+}
+
+#schedule-block .event-title {
+  font-size: 0.875rem;
+}
+
+#schedule-block .event-location {
+  font-size: 0.75rem;
+}
+
+@media print {
+  #schedule-block {
+    page-break-inside: avoid;
+  }
+  
+  #schedule-block .schedule-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+}
