@@ -40,7 +40,7 @@ const rawData = [
   { day: 'Tuesday', start_time: '13:50', end_time: '14:30', event: 'Presentation: User Feedback', location: 'Pitch Room' },
   { day: 'Tuesday', start_time: '14:35', end_time: '15:30', event: 'Team Work', location: 'on-site' },
   { day: 'Wednesday', start_time: '08:30', end_time: '13:40', event: 'Interviews & Box Lunch', location: 'off-site' },
-  { day: 'Wednesday', start_time: '08:30', end_time: '12:40', event: 'Planning and Coding Work', location: 'on-site' },
+  { day: 'Wednesday', start_time: '08:30', end_time: '12:40', event: 'Team Work: Planning and Coding Work', location: 'on-site' },
   { day: 'Wednesday', start_time: '12:45', end_time: '13:40', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Presentations: Problem Identification', location: 'on-site' },
   { day: 'Wednesday', start_time: '14:20', end_time: '15:30', event: 'Presentation: Developing Solutions', location: 'Pitch Room' },
@@ -52,7 +52,7 @@ const rawData = [
   { day: 'Thursday', start_time: '12:00', end_time: '12:40', event: 'Presentation: Assessing Pitches', location: 'Pitch Room' },
   { day: 'Thursday', start_time: '12:45', end_time: '13:30', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Interviews', location: 'off-site' },
-  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Prototype and Pitch Preparations', location: 'on-site' },
+  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Team Work: Prototype and Pitch Preparations', location: 'on-site' },
   { day: 'Thursday', start_time: '16:30', end_time: '22:00', event: 'Hackathon', location: 'on-site' },
   { day: 'Friday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Pitch Development', location: 'Pitch Room' },
   { day: 'Friday', start_time: '09:15', end_time: '10:10', event: 'Team Work', location: 'on-site' },
@@ -78,7 +78,7 @@ const getEventClass = (eventName) => {
   if (eventName === 'Working Lunch') {
     return 'event--working-lunch';
   }
-  if (eventName === 'Team Work') {
+  if (eventName.startsWith('Team Work')) {
     return 'event--teamwork';
   }
   if (eventName.startsWith('Team Presentations:')) {
@@ -94,32 +94,54 @@ const getEventClass = (eventName) => {
 };
 
 const layoutDayEvents = (events) => {
-  const active = [];
-  const layout = [];
+  const enriched = events.map((event) => ({
+    ...event,
+    eventStart: timeToMinutes(event.start_time),
+    eventEnd: timeToMinutes(event.end_time)
+  }));
 
-  events.forEach((event) => {
-    const eventStart = timeToMinutes(event.start_time);
-    const eventEnd = timeToMinutes(event.end_time);
+  const clusters = [];
+  let current = [];
+  let currentMaxEnd = -1;
 
-    for (let i = active.length - 1; i >= 0; i -= 1) {
-      if (active[i].end <= eventStart) {
-        active.splice(i, 1);
-      }
+  enriched.forEach((event) => {
+    if (current.length === 0 || event.eventStart < currentMaxEnd) {
+      current.push(event);
+      currentMaxEnd = Math.max(currentMaxEnd, event.eventEnd);
+    } else {
+      clusters.push(current);
+      current = [event];
+      currentMaxEnd = event.eventEnd;
     }
-
-    const usedLanes = new Set(active.map((item) => item.lane));
-    let lane = 0;
-    while (usedLanes.has(lane)) {
-      lane += 1;
-    }
-
-    active.push({ end: eventEnd, lane });
-    const laneCount = Math.max(...active.map((item) => item.lane)) + 1;
-
-    layout.push({ ...event, eventStart, eventEnd, lane, laneCount });
   });
+  if (current.length > 0) {
+    clusters.push(current);
+  }
 
-  return layout;
+  return clusters.flatMap((cluster) => {
+    const active = [];
+    const laidOut = [];
+
+    cluster.forEach((event) => {
+      for (let i = active.length - 1; i >= 0; i -= 1) {
+        if (active[i].end <= event.eventStart) {
+          active.splice(i, 1);
+        }
+      }
+
+      const usedLanes = new Set(active.map((item) => item.lane));
+      let lane = 0;
+      while (usedLanes.has(lane)) {
+        lane += 1;
+      }
+
+      active.push({ end: event.eventEnd, lane });
+      laidOut.push({ ...event, lane });
+    });
+
+    const laneCount = Math.max(...laidOut.map((item) => item.lane), 0) + 1;
+    return laidOut.map((item) => ({ ...item, laneCount }));
+  });
 };
 
 const ScheduleDisplay = ({ isPdfView = false }) => {
@@ -160,7 +182,7 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
             style={{ height: `${dayDuration * PX_PER_MINUTE}px` }}
           >
             <div className="hour-lines">
-              {hourMarks.map((mark) => {
+              {hourMarks.filter((mark) => timeToMinutes(mark) >= timeToMinutes('17:00')).map((mark) => {
                 const top = (timeToMinutes(mark) - dayStartMinutes) * PX_PER_MINUTE;
                 return (
                   <div key={mark} className="hour-line" style={{ top: `${top}px` }}>
@@ -173,8 +195,9 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
             {events.map((event, index) => {
               const top = (event.eventStart - dayStartMinutes) * PX_PER_MINUTE;
               const height = Math.max((event.eventEnd - event.eventStart) * PX_PER_MINUTE, MIN_BLOCK_HEIGHT);
-              const laneWidth = `${100 / event.laneCount}%`;
-              const left = `${(100 / event.laneCount) * event.lane}%`;
+              const laneWidth = `calc(${100 / event.laneCount}% - 6px)`;
+              const left = `calc(${(100 / event.laneCount) * event.lane}% + 3px)`;
+              const locationClass = event.location === 'off-site' ? 'location--offsite' : 'location--default';
 
               return (
                 <div
@@ -186,7 +209,7 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
                     <div className="event-name">
                       {event.start_time} - {event.end_time} <strong>{event.event}</strong>
                     </div>
-                    <div className="event-location">{event.location}</div>
+                    <div className={`event-location ${locationClass}`}>{event.location}</div>
                   </div>
                 </div>
               );
