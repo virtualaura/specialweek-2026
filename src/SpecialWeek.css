@@ -605,8 +605,23 @@ h1 {
 
 .pdf-view .schedule-container,
 .pdf-schedule-container {
-  grid-template-columns: 1fr;
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 4px;
+}
+
+.pdf-view .schedule-day {
+  min-height: auto;
+}
+
+.pdf-view .schedule-day-name {
+  padding: 6px;
+  font-size: 0.9rem;
+}
+
+.pdf-view .event-name {
+  font-size: 12px;
+  line-height: 1.15;
 }
 
 #schedule-block {
@@ -662,18 +677,39 @@ h1 {
     padding: 0;
   }
 
+  .App h1,
+  .App h2 {
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+  }
+
   #schedule-block {
     page-break-inside: avoid;
   }
   
   .schedule-container {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
     padding: 0;
   }
 
   .schedule-day {
     break-inside: avoid;
     page-break-inside: avoid;
+    min-height: auto;
+  }
+
+  .schedule-day-name {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+
+  .schedule-block {
+    padding: 4px;
+  }
+
+  .event-name {
+    font-size: 10px;
+    line-height: 1.1;
   }
 }

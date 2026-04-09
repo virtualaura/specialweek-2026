@@ -26,9 +26,11 @@ import './index.css';
 import './SpecialWeek.css';
 
 const MINUTES_PER_HOUR = 60;
-const PX_PER_MINUTE = 1.8;
+const PX_PER_MINUTE_SCREEN = 1.8;
+const PX_PER_MINUTE_PDF = 0.85;
 const DAY_START = '08:30';
-const MIN_BLOCK_HEIGHT = 42;
+const MIN_BLOCK_HEIGHT_SCREEN = 42;
+const MIN_BLOCK_HEIGHT_PDF = 24;
 const HACKATHON_DISPLAY_MINUTES = 120;
 
 const rawData = [
@@ -147,6 +149,8 @@ const layoutDayEvents = (events) => {
 
 const ScheduleDisplay = ({ isPdfView = false }) => {
   const dayStartMinutes = timeToMinutes(DAY_START);
+  const pixelsPerMinute = isPdfView ? PX_PER_MINUTE_PDF : PX_PER_MINUTE_SCREEN;
+  const minBlockHeight = isPdfView ? MIN_BLOCK_HEIGHT_PDF : MIN_BLOCK_HEIGHT_SCREEN;
 
   const scheduleData = useMemo(() => {
     const grouped = rawData.reduce((acc, event) => {
@@ -181,15 +185,15 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
           <div className="schedule-day-name">{day}</div>
           <div
             className="schedule-bars timeline"
-            style={{ height: `${displayedDayMinutes * PX_PER_MINUTE}px` }}
+            style={{ height: `${displayedDayMinutes * pixelsPerMinute}px` }}
           >
             {events.map((event, index) => {
-              const top = (event.eventStart - dayStartMinutes) * PX_PER_MINUTE;
+              const top = (event.eventStart - dayStartMinutes) * pixelsPerMinute;
               const isHackathonEvent = event.event.includes('Hackathon');
               const displayDurationMinutes = isHackathonEvent
                 ? HACKATHON_DISPLAY_MINUTES
                 : (event.eventEnd - event.eventStart);
-              const height = Math.max(displayDurationMinutes * PX_PER_MINUTE, MIN_BLOCK_HEIGHT);
+              const height = Math.max(displayDurationMinutes * pixelsPerMinute, minBlockHeight);
               const laneWidth = `calc(${100 / event.laneCount}% - 6px)`;
               const left = `calc(${(100 / event.laneCount) * event.lane}% + 3px)`;
               const offsiteClass = event.location === 'off-site' ? 'is-offsite' : '';
