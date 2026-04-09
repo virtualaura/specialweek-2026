@@ -28,7 +28,6 @@ import './SpecialWeek.css';
 const MINUTES_PER_HOUR = 60;
 const PX_PER_MINUTE = 1.8;
 const DAY_START = '08:30';
-const DAY_END = '22:00';
 const MIN_BLOCK_HEIGHT = 42;
 const HACKATHON_DISPLAY_MINUTES = 120;
 
@@ -40,7 +39,7 @@ const rawData = [
   { day: 'Tuesday', start_time: '12:45', end_time: '13:45', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Tuesday', start_time: '13:50', end_time: '14:30', event: 'Presentation: User Feedback', location: 'Pitch Room' },
   { day: 'Tuesday', start_time: '14:35', end_time: '15:30', event: 'Team Work', location: 'on-site' },
-  { day: 'Wednesday', start_time: '08:30', end_time: '13:40', event: 'Interviews & Box Lunch', location: 'off-site' },
+  { day: 'Wednesday', start_time: '08:30', end_time: '13:40', event: 'Off-Site Interviews & Box Lunch', location: 'off-site' },
   { day: 'Wednesday', start_time: '08:30', end_time: '12:40', event: 'Team Work: Planning and Coding Work', location: 'on-site' },
   { day: 'Wednesday', start_time: '12:45', end_time: '13:40', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Presentations: Problem Identification', location: 'on-site' },
@@ -52,7 +51,7 @@ const rawData = [
   { day: 'Thursday', start_time: '10:45', end_time: '11:55', event: 'Team Work', location: 'on-site' },
   { day: 'Thursday', start_time: '12:00', end_time: '12:40', event: 'Presentation: Assessing Pitches', location: 'Pitch Room' },
   { day: 'Thursday', start_time: '12:45', end_time: '13:30', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Interviews', location: 'off-site' },
+  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Off-Site Interviews', location: 'off-site' },
   { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Team Work: Prototype and Pitch Preparations', location: 'on-site' },
   { day: 'Thursday', start_time: '17:00', end_time: '22:00', event: 'Hackathon', location: 'on-site' },
   { day: 'Friday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Pitch Development', location: 'Pitch Room' },
@@ -61,7 +60,7 @@ const rawData = [
   { day: 'Friday', start_time: '10:45', end_time: '11:55', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '12:00', end_time: '12:30', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Friday', start_time: '12:00', end_time: '12:55', event: 'Working Lunch', location: 'on-site' },
-  { day: 'Friday', start_time: '12:35', end_time: '12:55', event: 'Team Work', location: 'on-site' },
+  { day: 'Friday', start_time: '12:30', end_time: '12:55', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '13:00', end_time: '16:00', event: 'Pitch Event and Prize Ceremony', location: 'Pitch Room' }
 ];
 
@@ -148,8 +147,6 @@ const layoutDayEvents = (events) => {
 
 const ScheduleDisplay = ({ isPdfView = false }) => {
   const dayStartMinutes = timeToMinutes(DAY_START);
-  const dayEndMinutes = timeToMinutes(DAY_END);
-  const dayDuration = dayEndMinutes - dayStartMinutes;
 
   const scheduleData = useMemo(() => {
     const grouped = rawData.reduce((acc, event) => {
@@ -164,18 +161,27 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
       day,
       events: layoutDayEvents(
         [...events].sort((a, b) => timeToMinutes(a.start_time) - timeToMinutes(b.start_time))
-      )
+      ),
+      displayedDayMinutes: layoutDayEvents(
+        [...events].sort((a, b) => timeToMinutes(a.start_time) - timeToMinutes(b.start_time))
+      ).reduce((maxEnd, event) => {
+        const isHackathonEvent = event.event.includes('Hackathon');
+        const displayDurationMinutes = isHackathonEvent
+          ? HACKATHON_DISPLAY_MINUTES
+          : (event.eventEnd - event.eventStart);
+        return Math.max(maxEnd, event.eventStart + displayDurationMinutes);
+      }, dayStartMinutes) - dayStartMinutes
     }));
   }, []);
 
   return (
     <div className={`schedule-container ${isPdfView ? 'pdf-schedule-container' : ''}`}>
-      {scheduleData.map(({ day, events }) => (
+      {scheduleData.map(({ day, events, displayedDayMinutes }) => (
         <div key={day} className="schedule-day">
           <div className="schedule-day-name">{day}</div>
           <div
             className="schedule-bars timeline"
-            style={{ height: `${dayDuration * PX_PER_MINUTE}px` }}
+            style={{ height: `${displayedDayMinutes * PX_PER_MINUTE}px` }}
           >
             {events.map((event, index) => {
               const top = (event.eventStart - dayStartMinutes) * PX_PER_MINUTE;

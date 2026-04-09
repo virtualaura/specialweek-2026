@@ -11,6 +11,7 @@ function App() {
   return (
     <div className={`App ${isPdfView ? 'pdf-view' : ''}`}>
       <h1>Special Week Schedule</h1>
+      <h2>12 - 15 May 2026</h2>
       <div className="schedule-actions">
         {!isPdfView && (
           <button onClick={openPdfView} className="download-pdf-btn">
