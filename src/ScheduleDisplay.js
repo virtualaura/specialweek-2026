@@ -30,6 +30,7 @@ const PX_PER_MINUTE = 1.8;
 const DAY_START = '08:30';
 const DAY_END = '22:00';
 const MIN_BLOCK_HEIGHT = 42;
+const HACKATHON_DISPLAY_MINUTES = 120;
 
 const rawData = [
   { day: 'Tuesday', start_time: '08:30', end_time: '10:10', event: 'Presentation: Introduction & Planning', location: 'Pitch Room' },
@@ -53,13 +54,14 @@ const rawData = [
   { day: 'Thursday', start_time: '12:45', end_time: '13:30', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Interviews', location: 'off-site' },
   { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Team Work: Prototype and Pitch Preparations', location: 'on-site' },
-  { day: 'Thursday', start_time: '16:30', end_time: '22:00', event: 'Hackathon', location: 'on-site' },
+  { day: 'Thursday', start_time: '17:00', end_time: '22:00', event: 'Hackathon', location: 'on-site' },
   { day: 'Friday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Pitch Development', location: 'Pitch Room' },
   { day: 'Friday', start_time: '09:15', end_time: '10:10', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '10:15', end_time: '10:40', event: 'Gouter', location: 'on-site' },
   { day: 'Friday', start_time: '10:45', end_time: '11:55', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '12:00', end_time: '12:30', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Friday', start_time: '12:00', end_time: '12:55', event: 'Working Lunch', location: 'on-site' },
+  { day: 'Friday', start_time: '12:35', end_time: '12:55', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '13:00', end_time: '16:00', event: 'Pitch Event and Prize Ceremony', location: 'Pitch Room' }
 ];
 
@@ -166,12 +168,6 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
     }));
   }, []);
 
-  const hourMarks = [];
-  for (let minute = dayStartMinutes; minute <= dayEndMinutes; minute += 60) {
-    const hour = String(Math.floor(minute / 60)).padStart(2, '0');
-    hourMarks.push(`${hour}:00`);
-  }
-
   return (
     <div className={`schedule-container ${isPdfView ? 'pdf-schedule-container' : ''}`}>
       {scheduleData.map(({ day, events }) => (
@@ -181,35 +177,27 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
             className="schedule-bars timeline"
             style={{ height: `${dayDuration * PX_PER_MINUTE}px` }}
           >
-            <div className="hour-lines">
-              {hourMarks.filter((mark) => timeToMinutes(mark) >= timeToMinutes('17:00')).map((mark) => {
-                const top = (timeToMinutes(mark) - dayStartMinutes) * PX_PER_MINUTE;
-                return (
-                  <div key={mark} className="hour-line" style={{ top: `${top}px` }}>
-                    <span className="hour-label">{mark}</span>
-                  </div>
-                );
-              })}
-            </div>
-
             {events.map((event, index) => {
               const top = (event.eventStart - dayStartMinutes) * PX_PER_MINUTE;
-              const height = Math.max((event.eventEnd - event.eventStart) * PX_PER_MINUTE, MIN_BLOCK_HEIGHT);
+              const isHackathonEvent = event.event.includes('Hackathon');
+              const displayDurationMinutes = isHackathonEvent
+                ? HACKATHON_DISPLAY_MINUTES
+                : (event.eventEnd - event.eventStart);
+              const height = Math.max(displayDurationMinutes * PX_PER_MINUTE, MIN_BLOCK_HEIGHT);
               const laneWidth = `calc(${100 / event.laneCount}% - 6px)`;
               const left = `calc(${(100 / event.laneCount) * event.lane}% + 3px)`;
-              const locationClass = event.location === 'off-site' ? 'location--offsite' : 'location--default';
+              const offsiteClass = event.location === 'off-site' ? 'is-offsite' : '';
 
               return (
                 <div
                   key={`${event.day}-${event.start_time}-${event.end_time}-${index}`}
-                  className={`schedule-block ${getEventClass(event.event)}`}
+                  className={`schedule-block ${getEventClass(event.event)} ${offsiteClass}`}
                   style={{ top: `${top}px`, height: `${height}px`, left, width: laneWidth }}
                 >
                   <div className="block-content">
                     <div className="event-name">
                       {event.start_time} - {event.end_time} <strong>{event.event}</strong>
                     </div>
-                    <div className={`event-location ${locationClass}`}>{event.location}</div>
                   </div>
                 </div>
               );
