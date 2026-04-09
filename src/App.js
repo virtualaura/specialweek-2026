@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 import ScheduleDisplay from './ScheduleDisplay';
+import SpecialWeekTodos from './SpecialWeekTodos';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
+function SchedulePage() {
   const isPdfView = new URLSearchParams(window.location.search).get('view') === 'pdf';
   const openPdfView = () => {
     window.open(`${window.location.pathname}?view=pdf`, '_blank', 'noopener,noreferrer');
@@ -38,19 +40,15 @@ function App() {
   );
 }
 
-export default App;
-
-/*
 function App() {
   return (
-    <Router basename="/specialweek-2025">
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<SpecialWeekTodos />} />
-        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/" element={<SchedulePage />} />
+        <Route path="/tasks" element={<SpecialWeekTodos />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
 export default App;
-*/

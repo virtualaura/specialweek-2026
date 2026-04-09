@@ -27,11 +27,12 @@ import './SpecialWeek.css';
 
 const MINUTES_PER_HOUR = 60;
 const PX_PER_MINUTE_SCREEN = 1.8;
-const PX_PER_MINUTE_PDF = 0.85;
+const PX_PER_MINUTE_PDF = 0.65;
 const DAY_START = '08:30';
 const MIN_BLOCK_HEIGHT_SCREEN = 42;
-const MIN_BLOCK_HEIGHT_PDF = 24;
-const HACKATHON_DISPLAY_MINUTES = 120;
+const MIN_BLOCK_HEIGHT_PDF = 18;
+const HACKATHON_DISPLAY_MINUTES_SCREEN = 120;
+const HACKATHON_DISPLAY_MINUTES_PDF = 60;
 
 const rawData = [
   { day: 'Tuesday', start_time: '08:30', end_time: '10:10', event: 'Presentation: Introduction & Planning', location: 'Pitch Room' },
@@ -45,8 +46,8 @@ const rawData = [
   { day: 'Wednesday', start_time: '08:30', end_time: '12:40', event: 'Team Work: Planning and Coding Work', location: 'on-site' },
   { day: 'Wednesday', start_time: '12:45', end_time: '13:40', event: 'Lunch', location: 'Rosey Dining Hall' },
   { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Presentations: Problem Identification', location: 'on-site' },
+  { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Work', location: 'on-site' },
   { day: 'Wednesday', start_time: '14:20', end_time: '15:30', event: 'Presentation: Developing Solutions', location: 'Pitch Room' },
-  { day: 'Wednesday', start_time: '14:20', end_time: '15:30', event: 'Team Work', location: 'on-site' },
   { day: 'Thursday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Solution Ideation & Prototyping', location: 'on-site' },
   { day: 'Thursday', start_time: '09:15', end_time: '10:10', event: 'Team Work', location: 'on-site' },  
   { day: 'Thursday', start_time: '10:15', end_time: '10:40', event: 'Gouter', location: 'on-site' },
@@ -151,6 +152,9 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
   const dayStartMinutes = timeToMinutes(DAY_START);
   const pixelsPerMinute = isPdfView ? PX_PER_MINUTE_PDF : PX_PER_MINUTE_SCREEN;
   const minBlockHeight = isPdfView ? MIN_BLOCK_HEIGHT_PDF : MIN_BLOCK_HEIGHT_SCREEN;
+  const hackathonDisplayMinutes = isPdfView
+    ? HACKATHON_DISPLAY_MINUTES_PDF
+    : HACKATHON_DISPLAY_MINUTES_SCREEN;
 
   const scheduleData = useMemo(() => {
     const grouped = rawData.reduce((acc, event) => {
@@ -171,12 +175,12 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
       ).reduce((maxEnd, event) => {
         const isHackathonEvent = event.event.includes('Hackathon');
         const displayDurationMinutes = isHackathonEvent
-          ? HACKATHON_DISPLAY_MINUTES
+          ? hackathonDisplayMinutes
           : (event.eventEnd - event.eventStart);
         return Math.max(maxEnd, event.eventStart + displayDurationMinutes);
       }, dayStartMinutes) - dayStartMinutes
     }));
-  }, []);
+  }, [dayStartMinutes, hackathonDisplayMinutes]);
 
   return (
     <div className={`schedule-container ${isPdfView ? 'pdf-schedule-container' : ''}`}>
@@ -191,7 +195,7 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
               const top = (event.eventStart - dayStartMinutes) * pixelsPerMinute;
               const isHackathonEvent = event.event.includes('Hackathon');
               const displayDurationMinutes = isHackathonEvent
-                ? HACKATHON_DISPLAY_MINUTES
+                ? hackathonDisplayMinutes
                 : (event.eventEnd - event.eventStart);
               const height = Math.max(displayDurationMinutes * pixelsPerMinute, minBlockHeight);
               const laneWidth = `calc(${100 / event.laneCount}% - 6px)`;

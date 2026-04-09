@@ -131,3 +131,43 @@
     margin-bottom: 1rem;
   }
 }
+
+/* Force compact 4-column PDF/print schedule layout */
+.App.pdf-view .schedule-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  justify-content: stretch;
+}
+
+.App.pdf-view .schedule-day {
+  min-width: 0;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  .App .schedule-container {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    justify-content: stretch;
+  }
+
+  .App .schedule-day {
+    min-width: 0;
+    min-height: auto !important;
+  }
+
+  .App .header-container {
+    height: 5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .App .header-image {
+    height: 5rem;
+  }
+}
