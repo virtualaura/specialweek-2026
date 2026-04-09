@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/specialweek-2026/static/css/main.55f42871.css",
-    "main.js": "/specialweek-2026/static/js/main.7b6c3687.js",
+    "main.css": "/specialweek-2026/static/css/main.496051ed.css",
+    "main.js": "/specialweek-2026/static/js/main.9229f84c.js",
     "index.html": "/specialweek-2026/index.html",
-    "main.55f42871.css.map": "/specialweek-2026/static/css/main.55f42871.css.map",
-    "main.7b6c3687.js.map": "/specialweek-2026/static/js/main.7b6c3687.js.map"
+    "main.496051ed.css.map": "/specialweek-2026/static/css/main.496051ed.css.map",
+    "main.9229f84c.js.map": "/specialweek-2026/static/js/main.9229f84c.js.map"
   },
   "entrypoints": [
-    "static/css/main.55f42871.css",
-    "static/js/main.7b6c3687.js"
+    "static/css/main.496051ed.css",
+    "static/js/main.9229f84c.js"
   ]
 }
