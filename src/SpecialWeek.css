@@ -117,17 +117,18 @@ ul {
   }
   
   .schedule-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: relative;
   }
   
   .schedule-block {
-    padding: 10px;
+    position: absolute;
+    padding: 8px;
     border-radius: 8px;
     color: white;
     transition: opacity 0.3s ease;
     font-size: 0.8rem;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .schedule-block.bg-blue-500 {
@@ -181,8 +182,8 @@ ul {
   /* Container for the entire schedule */
   .schedule-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+    gap: 12px;
     padding: 10px;
     height: auto;
   }
@@ -193,7 +194,8 @@ ul {
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
-    min-height: 500px; /* Increased minimum height */
+    min-height: 500px;
+    background: #fff;
   }
   
   .schedule-day-name {
@@ -206,37 +208,42 @@ ul {
   .schedule-bars {
     position: relative;
     flex-grow: 1;
-    /* padding: 10px 0; /* Removed horizontal padding */
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 107px,
+        rgba(120, 130, 150, 0.12) 108px
+      );
   }
   
   .schedule-block {
-    /* position: absolute; Seems to be making the blocks overlap */
-    width: calc(100% - 20px); /* Subtract padding */
-    /* left: 10px; Center in column */
-    /* margin-bottom: 5px; /* Space between blocks */
     border-radius: 6px;
-    /* padding: 10px; */
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     z-index: 10;
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
   
   .block-content {
     width: 100%;
+    padding-right: 4px;
   }
   
   .event-name {
     color: #000;
     font-weight: 400;
     font-size: 15px;
+    text-align: left;
   }
   
   .event-location {
     color: #000;
     font-size: 16px;
+    text-align: left;
   }
   
   .schedule-block.pitch-event .event-name {
@@ -256,6 +263,31 @@ ul {
   .schedule-block.red { background-color: #C5D4DB; color: black; }
   .schedule-block.pitch-event { background-color: #4A5D65; color: white; }
   .schedule-block.blue2 { background-color: #96DEF9; color: blue2; }
+
+  .hour-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hour-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed rgba(90, 100, 120, 0.25);
+  }
+
+  .hour-label {
+    position: absolute;
+    left: 6px;
+    top: -11px;
+    font-size: 11px;
+    color: #4a5568;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0 4px;
+    border-radius: 4px;
+  }
 
   .toggle-schedule-btn {
     background-color: transparent;
@@ -505,6 +537,24 @@ h1 {
   border-color: #d1d5db;
 }
 
+.schedule-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 10px 10px 10px;
+}
+
+.pdf-view {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.pdf-view .schedule-container,
+.pdf-schedule-container {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
 #schedule-block {
   max-width: 100%;
   overflow: hidden;
@@ -545,13 +595,31 @@ h1 {
 }
 
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  .schedule-actions {
+    display: none;
+  }
+
+  .App {
+    padding: 0;
+  }
+
   #schedule-block {
     page-break-inside: avoid;
   }
   
-  #schedule-block .schedule-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
+  .schedule-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .schedule-day {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
