@@ -30,7 +30,7 @@ const PX_PER_MINUTE_SCREEN = 1.8;
 const PX_PER_MINUTE_PDF = 0.65;
 const DAY_START = '08:30';
 const MIN_BLOCK_HEIGHT_SCREEN = 42;
-const MIN_BLOCK_HEIGHT_PDF = 18;
+const MIN_BLOCK_HEIGHT_PDF = 26;
 const HACKATHON_DISPLAY_MINUTES_SCREEN = 120;
 const HACKATHON_DISPLAY_MINUTES_PDF = 60;
 
@@ -197,7 +197,12 @@ const ScheduleDisplay = ({ isPdfView = false }) => {
               const displayDurationMinutes = isHackathonEvent
                 ? hackathonDisplayMinutes
                 : (event.eventEnd - event.eventStart);
-              const height = Math.max(displayDurationMinutes * pixelsPerMinute, minBlockHeight);
+              const textContent = `${event.start_time} - ${event.end_time} ${event.event}`;
+              const charsPerLine = event.laneCount > 1 ? 24 : 38;
+              const estimatedLines = Math.ceil(textContent.length / charsPerLine);
+              const textLineHeight = isPdfView ? 11 : 15;
+              const estimatedTextHeight = Math.max(estimatedLines * textLineHeight + 10, minBlockHeight);
+              const height = Math.max(displayDurationMinutes * pixelsPerMinute, estimatedTextHeight);
               const laneWidth = `calc(${100 / event.laneCount}% - 6px)`;
               const left = `calc(${(100 / event.laneCount) * event.lane}% + 3px)`;
               const offsiteClass = event.location === 'off-site' ? 'is-offsite' : '';

@@ -140,6 +140,11 @@
   justify-content: stretch;
 }
 
+.App.pdf-view {
+  width: 100%;
+  max-width: none;
+}
+
 .App.pdf-view .schedule-day {
   min-width: 0;
 }
