@@ -47,7 +47,7 @@ export default function ScheduleWrapper({ standalone = false, onClose }) {
     const element = document.getElementById("schedule-block");
     const opt = {
       margin: 0.5,
-      filename: 'Rosey Special Week 2025.pdf',
+      filename: 'Rosey Special Week 2026.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 1920, windowHeight: 1080 },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait', compress: true }
@@ -65,12 +65,12 @@ export default function ScheduleWrapper({ standalone = false, onClose }) {
               alt="Special Week Logo" 
               className="header-image"
             />
-            <h1>Special Week 2025 - Full Schedule</h1>
+            <h1>Special Week 2026 - Full Schedule</h1>
           </div>
         </>
       ) : (
         <div className="modal-header">
-          <h2>Special Week 2025</h2>
+          <h2>Special Week 2026</h2>
           <div className="modal-buttons">
             <button className="download-pdf-btn" onClick={generatePDF}>Download PDF</button>
             <button className="close-window-btn" onClick={onClose}>Close Window</button>

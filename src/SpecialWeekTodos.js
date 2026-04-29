@@ -38,7 +38,7 @@ export default function SpecialWeekTodos() {
       if (!element) return;
       const opt = {
         margin: 0.5,
-        filename: 'Rosey Special Week 2025.pdf',
+        filename: 'Rosey Special Week 2026.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 1920, windowHeight: 1080 },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape', compress: true }
@@ -132,7 +132,7 @@ export default function SpecialWeekTodos() {
           alt="Special Week Logo" 
           className="header-image"
         />
-        <h1>Special Week 2025 - Schedule and To-Dos</h1>
+        <h1>Special Week 2026 - Schedule and To-Dos</h1>
       </div>
 
       <div className="section-header">
@@ -150,7 +150,7 @@ export default function SpecialWeekTodos() {
         <div className="modal-overlay" onClick={() => setShowSchedule(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Special Week 2025</h2>
+              <h2>Special Week 2026</h2>
               <div className="modal-buttons">
                 <button className="download-pdf-btn" onClick={generatePDF}>Download PDF</button>
                 <button className="close-window-btn" onClick={() => setShowSchedule(false)}>Close Window</button>
