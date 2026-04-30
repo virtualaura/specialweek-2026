@@ -138,7 +138,7 @@ export default function SpecialWeekTodos() {
           alt="Special Week Logo" 
           className="header-image"
         />
-        <h1>Special Week 2026 - Schedule and To-Dos</h1>
+        <h1>Special Week 2026 - To-Dos</h1>
       </div>
 
       {showSchedule && (
