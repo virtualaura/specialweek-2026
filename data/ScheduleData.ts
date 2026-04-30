@@ -31,5 +31,6 @@ export const eventScheduleData: EventScheduleItem[] = [
   { day: 'Friday', start_time: '10:15', end_time: '10:45', event: 'Gouter', location: 'on-site' },
   { day: 'Friday', start_time: '10:45', end_time: '12:00', event: 'Team Work', location: 'on-site' },
   { day: 'Friday', start_time: '12:00', end_time: '13:00', event: 'Working Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Friday', start_time: '13:00', end_time: '16:00', event: 'Pitch Event and Prize Ceremony', location: 'Pitch Room' }
+  { day: 'Friday', start_time: '13:00', end_time: '14:00', event: 'Round 1 Pitches', location: 'Salles Polyvalentes' },
+  { day: 'Friday', start_time: '14:30', end_time: '17:00', event: 'Final Pitch Event and Prize Ceremony', location: 'Pitch Room' }
 ];
