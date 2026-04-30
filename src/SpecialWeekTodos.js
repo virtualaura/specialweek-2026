@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 import ScheduleDisplay from "./ScheduleDisplay";
-import html2pdf from 'html2pdf.js';
 
 const getUniqueNames = (tasks) => {
   const names = new Set();
@@ -16,11 +15,33 @@ const getUniqueNames = (tasks) => {
   return [...names].sort();
 };
 
-// Helper function to format dates
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-GB', options);
+const parseDueDate = (dateStr) => {
+  if (!dateStr) return null;
+  const trimmed = dateStr.trim();
+  const match = trimmed.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+  if (!match) return null;
+
+  const day = Number(match[1]);
+  const month = Number(match[2]);
+  const year = Number(match[3]);
+  const date = new Date(year, month - 1, day);
+
+  if (
+    Number.isNaN(date.getTime()) ||
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  return date;
+};
+
+const formatDate = (date) => {
+  if (!date) return "No due date";
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-GB", options);
 };
 
 export default function SpecialWeekTodos() {
@@ -30,24 +51,6 @@ export default function SpecialWeekTodos() {
   const [names, setNames] = useState([]);
   const [showSchedule, setShowSchedule] = useState(false);
   const [statusFilter, setStatusFilter] = useState("all"); // can be "all", "todo", "done"
-
-  const generatePDF = async (e) => {
-    e.preventDefault();
-    try {
-      const element = document.getElementById('schedule-block');
-      if (!element) return;
-      const opt = {
-        margin: 0.5,
-        filename: 'Rosey Special Week 2026.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 1920, windowHeight: 1080 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape', compress: true }
-      };
-      await html2pdf().set(opt).from(element).save();
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
 
   useEffect(() => {
     async function fetchTasks() {
@@ -63,12 +66,15 @@ export default function SpecialWeekTodos() {
             id: task.id || `task-${i}`,
             who: task.who ? task.who.split(";") : [],
             cc: task.cc || "",
-            due_date: formatDate(task.due_date),
+            dueDateObj: parseDueDate(task.due_date),
           }));
-          setTasks(formattedTasks.sort((a, b) => new Date(a.due_date) - new Date(b.due_date)));
+          const sortedTasks = [...formattedTasks].sort((a, b) => {
+            const aTime = a.dueDateObj ? a.dueDateObj.getTime() : Number.POSITIVE_INFINITY;
+            const bTime = b.dueDateObj ? b.dueDateObj.getTime() : Number.POSITIVE_INFINITY;
+            return aTime - bTime;
+          });
+          setTasks(sortedTasks);
           setNames(getUniqueNames(formattedTasks));
-
-          console.log("All parsed tasks:", formattedTasks);
         },
       });
     }
@@ -135,25 +141,13 @@ export default function SpecialWeekTodos() {
         <h1>Special Week 2026 - Schedule and To-Dos</h1>
       </div>
 
-      <div className="section-header">
-        <h2>Schedule</h2>
-        <button className="hide-calendar-btn" onClick={() => setShowSchedule(!showSchedule)}>
-          {showSchedule ? 'Hide Schedule' : 'Show Schedule'}
-        </button>
-      </div>
-      <div>
-        <h4 id="schedule">
-          Clicking the "Show Schedule" button will open up the daily schedule, starting on Tuesday the 12th of May and finishing Friday the 15th of May in the afternoon. If you want a pdf version of the schedule, <button type="button" onClick={generatePDF} className="calendar-link">click here</button>.
-        </h4>
-      </div>
       {showSchedule && (
         <div className="modal-overlay" onClick={() => setShowSchedule(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
               <h2>Special Week 2026</h2>
               <div className="modal-buttons">
-                <button className="download-pdf-btn" onClick={generatePDF}>Download PDF</button>
-                <button className="close-window-btn" onClick={() => setShowSchedule(false)}>Close Window</button>
+                <button className="close-window-btn" onClick={() => setShowSchedule(false)} aria-label="Close schedule">X</button>
               </div>
             </div>
             <div id="schedule-block" className="my-6">
@@ -165,6 +159,9 @@ export default function SpecialWeekTodos() {
 
       <div className="section-header">
         <h2>To-dos</h2>
+        <button className="hide-calendar-btn" onClick={() => setShowSchedule(!showSchedule)}>
+          {showSchedule ? 'Hide Schedule' : 'Show Schedule'}
+        </button>
       </div>
       <div>
         <h4 id="todos">
@@ -245,11 +242,9 @@ export default function SpecialWeekTodos() {
                 </span>
               </div>
               <div className="mt-2 ml-8 text-gray-700 text-sm space-y-1">
-                {todo.status === "done" && todo.due_date && (
-                  <div className="todo-detail">
-                    <span className="font-semibold text-gray-900">📅</span> {todo.due_date}
-                  </div>
-                )}
+                <div className="todo-detail">
+                  <span className="font-semibold text-gray-900">📅</span> {formatDate(todo.dueDateObj)}
+                </div>
                 <div className="todo-detail">
                   <span className="font-semibold text-gray-900">👤</span> 
                   {todo.who ? todo.who.join(", ") : ""}
