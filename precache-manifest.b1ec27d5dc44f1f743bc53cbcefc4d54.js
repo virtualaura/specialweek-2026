@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e4544f25caa41692cb7b269f08b6185a",
+    "revision": "452c791b53dfea4902cc99f07b7fbd72",
     "url": "/specialweek-2026/index.html"
   },
   {
-    "revision": "4d7033f7f7df053f4f8e",
+    "revision": "46f25deca4146b1bd6b5",
     "url": "/specialweek-2026/static/css/main.c6f4bb7a.chunk.css"
   },
   {
-    "revision": "328972875a479f411b2c",
-    "url": "/specialweek-2026/static/js/2.7fc32677.chunk.js"
+    "revision": "06f4b70f562990f1bbba",
+    "url": "/specialweek-2026/static/js/2.af649556.chunk.js"
   },
   {
     "revision": "649102e1f892bab14138fc1c6c35b64e",
-    "url": "/specialweek-2026/static/js/2.7fc32677.chunk.js.LICENSE.txt"
+    "url": "/specialweek-2026/static/js/2.af649556.chunk.js.LICENSE.txt"
   },
   {
     "revision": "c22efca625489c381feb",
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/specialweek-2026/static/js/4.e33eb713.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4d7033f7f7df053f4f8e",
-    "url": "/specialweek-2026/static/js/main.f587ade8.chunk.js"
+    "revision": "46f25deca4146b1bd6b5",
+    "url": "/specialweek-2026/static/js/main.e03a929e.chunk.js"
   },
   {
     "revision": "cc3d5c1c150ffb49a98e",
