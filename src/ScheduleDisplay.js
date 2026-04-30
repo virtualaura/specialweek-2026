@@ -24,6 +24,7 @@ import React, { useMemo } from 'react';
 import './App.css';
 import './index.css';
 import './SpecialWeek.css';
+import { eventScheduleData } from './data/scheduleData';
 
 const MINUTES_PER_HOUR = 60;
 const PX_PER_MINUTE_SCREEN = 1.8;
@@ -34,38 +35,7 @@ const MIN_BLOCK_HEIGHT_PDF = 26;
 const HACKATHON_DISPLAY_MINUTES_SCREEN = 120;
 const HACKATHON_DISPLAY_MINUTES_PDF = 60;
 
-const rawData = [
-  { day: 'Tuesday', start_time: '08:30', end_time: '10:10', event: 'Presentation: Introduction & Planning', location: 'Pitch Room' },
-  { day: 'Tuesday', start_time: '10:15', end_time: '10:40', event: 'Gouter', location: 'on-site' },
-  { day: 'Tuesday', start_time: '10:45', end_time: '11:15', event: 'Presentation: Problem Framing', location: 'Pitch Room' },
-  { day: 'Tuesday', start_time: '11:20', end_time: '12:40', event: 'Team Work', location: 'on-site' },
-  { day: 'Tuesday', start_time: '12:45', end_time: '13:45', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Tuesday', start_time: '13:50', end_time: '14:30', event: 'Presentation: User Feedback', location: 'Pitch Room' },
-  { day: 'Tuesday', start_time: '14:35', end_time: '15:30', event: 'Team Work', location: 'on-site' },
-  { day: 'Wednesday', start_time: '08:30', end_time: '13:40', event: 'Off-Site Interviews & Box Lunch', location: 'off-site' },
-  { day: 'Wednesday', start_time: '08:30', end_time: '12:40', event: 'Team Work: Planning and Coding Work', location: 'on-site' },
-  { day: 'Wednesday', start_time: '12:45', end_time: '13:40', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Presentations: Problem Identification', location: 'on-site' },
-  { day: 'Wednesday', start_time: '13:45', end_time: '14:15', event: 'Team Work', location: 'on-site' },
-  { day: 'Wednesday', start_time: '14:20', end_time: '15:30', event: 'Presentation: Developing Solutions', location: 'Pitch Room' },
-  { day: 'Thursday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Solution Ideation & Prototyping', location: 'on-site' },
-  { day: 'Thursday', start_time: '09:15', end_time: '10:10', event: 'Team Work', location: 'on-site' },  
-  { day: 'Thursday', start_time: '10:15', end_time: '10:40', event: 'Gouter', location: 'on-site' },
-  { day: 'Thursday', start_time: '10:45', end_time: '11:55', event: 'Team Work', location: 'on-site' },
-  { day: 'Thursday', start_time: '12:00', end_time: '12:40', event: 'Presentation: Assessing Pitches', location: 'Pitch Room' },
-  { day: 'Thursday', start_time: '12:45', end_time: '13:30', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Off-Site Interviews', location: 'off-site' },
-  { day: 'Thursday', start_time: '13:35', end_time: '16:30', event: 'Team Work: Prototype and Pitch Preparations', location: 'on-site' },
-  { day: 'Thursday', start_time: '17:00', end_time: '22:00', event: 'Hackathon', location: 'on-site' },
-  { day: 'Friday', start_time: '08:30', end_time: '09:10', event: 'Presentation: Pitch Development', location: 'Pitch Room' },
-  { day: 'Friday', start_time: '09:15', end_time: '10:10', event: 'Team Work', location: 'on-site' },
-  { day: 'Friday', start_time: '10:15', end_time: '10:40', event: 'Gouter', location: 'on-site' },
-  { day: 'Friday', start_time: '10:45', end_time: '11:55', event: 'Team Work', location: 'on-site' },
-  { day: 'Friday', start_time: '12:00', end_time: '12:30', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Friday', start_time: '12:00', end_time: '12:55', event: 'Working Lunch', location: 'on-site' },
-  { day: 'Friday', start_time: '12:30', end_time: '12:55', event: 'Team Work', location: 'on-site' },
-  { day: 'Friday', start_time: '13:00', end_time: '16:00', event: 'Pitch Event and Prize Ceremony', location: 'Pitch Room' }
-];
+const rawData = eventScheduleData;
 
 const timeToMinutes = (time) => {
   const [hours, minutes] = time.split(':').map(Number);
