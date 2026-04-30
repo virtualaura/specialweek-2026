@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import ScheduleDisplay from './ScheduleDisplay';
 import SpecialWeekTodos from './SpecialWeekTodos';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
-function SchedulePage() {
-  const isPdfView = new URLSearchParams(window.location.search).get('view') === 'pdf';
+function SchedulePage({ isPdfView = false }) {
   const openPdfView = () => {
-    window.open(`${window.location.pathname}?view=pdf`, '_blank', 'noopener,noreferrer');
+    const basePath = process.env.PUBLIC_URL || '';
+    window.open(`${basePath}/#/print`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -42,12 +42,13 @@ function SchedulePage() {
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<SchedulePage />} />
+        <Route path="/" element={<SchedulePage isPdfView={false} />} />
+        <Route path="/print" element={<SchedulePage isPdfView={true} />} />
         <Route path="/tasks" element={<SpecialWeekTodos />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

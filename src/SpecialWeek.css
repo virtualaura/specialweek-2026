@@ -671,8 +671,26 @@ h1 {
 
 @media print {
   @page {
-    size: A4 landscape;
+    size: A3 portrait;
     margin: 10mm;
+  }
+
+  html,
+  body,
+  #root,
+  .App,
+  .pdf-view,
+  .schedule-container,
+  .schedule-day,
+  .schedule-bars {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  html,
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .schedule-actions {
@@ -680,13 +698,15 @@ h1 {
   }
 
   .App {
-    padding: 0;
+    padding: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
   }
 
   .App h1,
   .App h2 {
-    margin: 0 0 6px 0;
-    font-size: 1rem;
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
   }
 
   #schedule-block {
@@ -694,28 +714,32 @@ h1 {
   }
   
   .schedule-container {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 6px;
-    padding: 0;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 0 !important;
   }
 
   .schedule-day {
     break-inside: avoid;
     page-break-inside: avoid;
-    min-height: auto;
+    min-height: auto !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   .schedule-day-name {
-    padding: 6px;
-    font-size: 0.85rem;
+    padding: 8px;
+    font-size: 0.95rem;
   }
 
   .schedule-block {
-    padding: 4px;
+    padding: 6px;
   }
 
   .event-name {
-    font-size: 10px;
-    line-height: 1.1;
+    font-size: 11px;
+    line-height: 1.2;
   }
 }
