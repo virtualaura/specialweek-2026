@@ -1,28 +1,22 @@
 {
   "files": {
     "main.css": "/specialweek-2026/static/css/main.c6f4bb7a.chunk.css",
-    "main.js": "/specialweek-2026/static/js/main.e03a929e.chunk.js",
-    "main.js.map": "/specialweek-2026/static/js/main.e03a929e.chunk.js.map",
-    "runtime-main.js": "/specialweek-2026/static/js/runtime-main.c2f04089.js",
-    "runtime-main.js.map": "/specialweek-2026/static/js/runtime-main.c2f04089.js.map",
-    "static/js/2.af649556.chunk.js": "/specialweek-2026/static/js/2.af649556.chunk.js",
-    "static/js/2.af649556.chunk.js.map": "/specialweek-2026/static/js/2.af649556.chunk.js.map",
-    "static/js/3.d5a4d77b.chunk.js": "/specialweek-2026/static/js/3.d5a4d77b.chunk.js",
-    "static/js/3.d5a4d77b.chunk.js.map": "/specialweek-2026/static/js/3.d5a4d77b.chunk.js.map",
-    "static/js/4.e33eb713.chunk.js": "/specialweek-2026/static/js/4.e33eb713.chunk.js",
-    "static/js/4.e33eb713.chunk.js.map": "/specialweek-2026/static/js/4.e33eb713.chunk.js.map",
+    "main.js": "/specialweek-2026/static/js/main.537e373a.chunk.js",
+    "main.js.map": "/specialweek-2026/static/js/main.537e373a.chunk.js.map",
+    "runtime-main.js": "/specialweek-2026/static/js/runtime-main.398f8117.js",
+    "runtime-main.js.map": "/specialweek-2026/static/js/runtime-main.398f8117.js.map",
+    "static/js/2.35e25bbc.chunk.js": "/specialweek-2026/static/js/2.35e25bbc.chunk.js",
+    "static/js/2.35e25bbc.chunk.js.map": "/specialweek-2026/static/js/2.35e25bbc.chunk.js.map",
     "index.html": "/specialweek-2026/index.html",
-    "precache-manifest.b1ec27d5dc44f1f743bc53cbcefc4d54.js": "/specialweek-2026/precache-manifest.b1ec27d5dc44f1f743bc53cbcefc4d54.js",
+    "precache-manifest.c313de2f56a7cd811866af8f6f40fcb0.js": "/specialweek-2026/precache-manifest.c313de2f56a7cd811866af8f6f40fcb0.js",
     "service-worker.js": "/specialweek-2026/service-worker.js",
     "static/css/main.c6f4bb7a.chunk.css.map": "/specialweek-2026/static/css/main.c6f4bb7a.chunk.css.map",
-    "static/js/2.af649556.chunk.js.LICENSE.txt": "/specialweek-2026/static/js/2.af649556.chunk.js.LICENSE.txt",
-    "static/js/3.d5a4d77b.chunk.js.LICENSE.txt": "/specialweek-2026/static/js/3.d5a4d77b.chunk.js.LICENSE.txt",
-    "static/js/4.e33eb713.chunk.js.LICENSE.txt": "/specialweek-2026/static/js/4.e33eb713.chunk.js.LICENSE.txt"
+    "static/js/2.35e25bbc.chunk.js.LICENSE.txt": "/specialweek-2026/static/js/2.35e25bbc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c2f04089.js",
-    "static/js/2.af649556.chunk.js",
+    "static/js/runtime-main.398f8117.js",
+    "static/js/2.35e25bbc.chunk.js",
     "static/css/main.c6f4bb7a.chunk.css",
-    "static/js/main.e03a929e.chunk.js"
+    "static/js/main.537e373a.chunk.js"
   ]
 }
