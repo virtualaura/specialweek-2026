@@ -3,35 +3,11 @@ import './App.css';
 import ScheduleDisplay from './ScheduleDisplay';
 import SpecialWeekTodos from './SpecialWeekTodos';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import html2pdf from 'html2pdf.js';
 
 function SchedulePage({ isPdfView = false }) {
-  const openPdfView = async () => {
-    const element = document.getElementById('schedule-export-root');
-    if (!element) return;
-
-    const opt = {
-      margin: 0.3,
-      filename: 'Special Week 2026.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff'
-      },
-      jsPDF: {
-        unit: 'in',
-        format: 'a3',
-        orientation: 'portrait',
-        compress: true
-      }
-    };
-
-    const worker = html2pdf().set(opt).from(element).toPdf();
-    const pdf = await worker.get('pdf');
-    const blobUrl = pdf.output('bloburl');
-    window.open(blobUrl, '_blank', 'noopener,noreferrer');
+  const openPdfView = () => {
+    const basePath = process.env.PUBLIC_URL || '';
+    window.open(`${basePath}/#/print`, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -59,9 +35,7 @@ function SchedulePage({ isPdfView = false }) {
           </button>
         )}
       </div>
-      <div id="schedule-export-root">
-        <ScheduleDisplay isPdfView={isPdfView} />
-      </div>
+      <ScheduleDisplay isPdfView={isPdfView} />
     </div>
   );
 }
