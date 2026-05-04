@@ -26,7 +26,7 @@ export const eventScheduleData: EventScheduleItem[] = [
   { day: 'Thursday', start_time: '10:45', end_time: '12:10', event: 'Team Work', location: 'on-site' },
   { day: 'Thursday', start_time: '12:15', end_time: '12:40', event: 'Presentation: Assessing Pitches', location: 'Pitch Room' },
   { day: 'Thursday', start_time: '12:45', end_time: '13:40', event: 'Lunch', location: 'Rosey Dining Hall' },
-  { day: 'Thursday', start_time: '13:45', end_time: '16:30', event: 'Solution Validation InterviewsInterviews', location: 'off-site' },
+  { day: 'Thursday', start_time: '13:45', end_time: '16:30', event: 'Solution Validation Interviews', location: 'off-site' },
   { day: 'Thursday', start_time: '13:45', end_time: '16:30', event: 'Team Work: Prototyping and Pitch Preparations', location: 'on-site' }, 
   { day: 'Thursday', start_time: '17:00', end_time: '22:00', event: 'Hackathon (optional)', location: 'on-site' },
   { day: 'Friday', start_time: '08:40', end_time: '09:10', event: 'Presentation: Pitch Development', location: 'Pitch Room' },
